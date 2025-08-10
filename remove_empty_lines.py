@@ -2,7 +2,28 @@ import tkinter as tk
 
 def remove_empty_lines():
     code = text.get("1.0", tk.END)
-    cleaned = "\n".join(line for line in code.splitlines() if line.strip())
+    lines = code.splitlines()
+    prefixes = ["def ", "void ", "uint8_t ", "float "]
+    out = []
+    i = 0
+    n = len(lines)
+    while i < n:
+        line = lines[i]
+        if line.strip() == "":
+            j = i
+            while j < n and lines[j].strip() == "":
+                j += 1
+            if j < n:
+                next_line = lines[j].lstrip()
+                if any(next_line.startswith(p) for p in prefixes):
+                    out.append("")
+            i = j
+        else:
+            out.append(line)
+            i += 1
+    cleaned = "\n".join(out)
+    if code.endswith("\n"):
+        cleaned += "\n"
     text.delete("1.0", tk.END)
     text.insert("1.0", cleaned)
 
