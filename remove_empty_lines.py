@@ -3,7 +3,7 @@ import tkinter as tk
 def remove_empty_lines():
     code = text.get("1.0", tk.END)
     lines = code.splitlines()
-    prefixes = ["def ", "void ", "uint8_t ", "float ", "int "]
+    prefixes = ["def ", "void ", "uint8_t ", "float ", "int ", "class ", "if __name__ "]
     out = []
     i = 0
     n = len(lines)
