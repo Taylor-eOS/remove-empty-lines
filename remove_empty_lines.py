@@ -97,5 +97,6 @@ text.unbind_class("Text", "<Command-v>")
 text.bind("<Control-v>", paste_text)
 text.bind("<Control-V>", paste_text)
 text.bind("<Command-v>", paste_text)
+root.bind("<Control-q>", lambda e: root.destroy())
 root.mainloop()
 
