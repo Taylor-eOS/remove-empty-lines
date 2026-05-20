@@ -57,7 +57,10 @@ def paste_text(event=None):
     except tk.TclError:
         root.bell()
         return "break"
+    if text.tag_ranges("sel"):
+        text.delete("sel.first", "sel.last")
     text.insert("insert", content)
+    remove_empty_lines()
     return "break"
 
 root = tk.Tk()
@@ -71,8 +74,6 @@ text.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
 vsb.pack(side="right", fill="y")
 hsb.pack(side="bottom", fill="x")
 text.pack(fill="both", expand=True)
-button = tk.Button(root, text="Remove Empty Lines", command=remove_empty_lines)
-button.pack(fill="x")
 text.unbind_class("Text", "<Control-a>")
 text.unbind_class("Text", "<Control-A>")
 text.unbind_class("Text", "<Command-a>")
@@ -99,4 +100,3 @@ text.bind("<Control-V>", paste_text)
 text.bind("<Command-v>", paste_text)
 root.bind("<Control-q>", lambda e: root.destroy())
 root.mainloop()
-
